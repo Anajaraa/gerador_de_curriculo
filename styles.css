@@ -1,0 +1,108 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0D0D0D;
+    color: #A0EAF2;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: #443D73;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    text-align: center;
+    color: #E9A0F2;
+    margin-bottom: 20px;
+}
+
+.language-switch {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #9080F2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #E9A0F2;
+}
+
+label {
+    display: block;
+    margin: 15px 0 5px;
+    font-weight: bold;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #A0EAF2;
+    border-radius: 4px;
+    background: #0D0D0D;
+    color: #A0EAF2;
+    font-size: 14px;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #E9A0F2;
+}
+
+.section-title {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    color: #E9A0F2;
+}
+
+/* Customize the form submit button */
+form button[type="button"] {
+    width: 100%;
+    background-color: #443D73;
+    color: #A0EAF2;
+    font-size: 18px;
+    padding: 12px;
+    margin-top: 20px;
+}
+
+form button[type="button"]:hover {
+    background-color: #9080F2;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+
+    input, textarea {
+        font-size: 12px;
+    }
+}

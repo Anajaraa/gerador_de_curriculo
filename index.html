@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.3.0/docx.umd.min.js"></script>
+
+
+    <!-- Biblioteca -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <title>Gerador de Currículo</title>
+</head>
+<body>
+    <div class="container">
+        <div class="language-switch">
+            <button id="switch-lang" onclick="switchLanguage()">English</button>
+        </div>
+        <h1 id="form-title">Formulário de Currículo</h1>
+        <form id="curriculo-form">
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" required>
+
+            <label for="celular">Celular com DDD:</label>
+            <input type="text" id="celular" required>
+
+            <label for="cidade">Cidade:</label>
+            <input type="text" id="cidade" required>
+
+            <label for="estado">Estado:</label>
+            <input type="text" id="estado" required>
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" required>
+
+            <label for="linkedin">LinkedIn Username:</label>
+            <input type="text" id="linkedin" required>
+
+            <label for="github">GitHub Username:</label>
+            <input type="text" id="github" required>
+
+            <label for="portfolio">Link Portfólio:</label>
+            <input type="url" id="portfolio">
+
+            <label for="tituloCv">Título do Currículo:</label>
+            <input type="text" id="tituloCv" required>
+
+            <label for="resumo">Resumo sobre você:</label>
+            <textarea id="resumo" rows="4" required></textarea>
+
+            <div class="section-title">HABILIDADES</div>
+            <label for="hardskills">HardSkills:</label>
+            <textarea id="hardskills" rows="2"></textarea>
+
+            <label for="softskills">SoftSkills:</label>
+            <textarea id="softskills" rows="2"></textarea>
+
+            <label for="metodologias">Metodologias Ágeis:</label>
+            <textarea id="metodologias" rows="2"></textarea>
+
+            <label for="idiomas">Idiomas:</label>
+            <textarea id="idiomas" rows="2"></textarea>
+
+            <div class="section-title">EDUCAÇÃO</div>
+            <label for="descricaoEdu">Descrição:</label>
+            <textarea id="descricaoEdu" rows="2"></textarea>
+
+            <label for="instituicao">Instituição:</label>
+            <input type="text" id="instituicao">
+
+            <label for="inicioEdu">Mês/Ano de Início:</label>
+            <input type="text" id="inicioEdu">
+
+            <label for="fimEdu">Mês/Ano Final:</label>
+            <input type="text" id="fimEdu">
+
+            <div class="section-title">PROJETOS E EXPERIÊNCIAS</div>
+            <label for="cargo">Cargo:</label>
+            <input type="text" id="cargo">
+
+            <label for="empresa">Empresa:</label>
+            <input type="text" id="empresa">
+
+            <label for="inicioExp">Mês/Ano de Início:</label>
+            <input type="text" id="inicioExp">
+
+            <label for="fimExp">Mês/Ano Final:</label>
+            <input type="text" id="fimExp">
+
+            <label for="descExp">Descrição:</label>
+            <textarea id="descExp" rows="4"></textarea>
+
+            <button type="button" onclick="gerarCurriculo()">Gerar Currículo</button>
+        </form>
+    </div>
+
+   
+    
+    <script src="script.js"></script>
+</body>
+</html>
