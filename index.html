@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.3.0/docx.umd.min.js"></script>
-
-
-    <!-- Biblioteca -->
+    <script src="https://cdn.jsdelivr.net/npm/docx@7.3.0/build/index.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    
     <title>Gerador de Currículo</title>
 </head>
 <body>
@@ -64,6 +62,7 @@
             <div class="section-title">EDUCAÇÃO</div>
             <label for="descricaoEdu">Descrição:</label>
             <textarea id="descricaoEdu" rows="2"></textarea>
+            
 
             <label for="instituicao">Instituição:</label>
             <input type="text" id="instituicao">
@@ -73,6 +72,7 @@
 
             <label for="fimEdu">Mês/Ano Final:</label>
             <input type="text" id="fimEdu">
+            <button type="button" id="add-edu">Adicionar Educação</button>
 
             <div class="section-title">PROJETOS E EXPERIÊNCIAS</div>
             <label for="cargo">Cargo:</label>
@@ -89,6 +89,8 @@
 
             <label for="descExp">Descrição:</label>
             <textarea id="descExp" rows="4"></textarea>
+            <button type="button" id="add-exp">Adicionar Experiência</button>
+
 
             <button type="button" onclick="gerarCurriculo()">Gerar Currículo</button>
         </form>
