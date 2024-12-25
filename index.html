@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Currículo</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/docx@7.3.0/build/index.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="language-switch">
+            <button id="switch-lang" onclick="switchLanguage()">English</button>
+        </div>
+        <h1 id="form-title">Formulário de Currículo</h1>
+        <form id="curriculo-form">
+            <!-- Informações pessoais -->
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" required>
+
+            <label for="endereco">Endereço:</label>
+            <input type="text" id="endereco" required>
+
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" required>
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" required>
+
+            <!-- Objetivo profissional -->
+            <label for="objetivo">Objetivo Profissional:</label>
+            <textarea id="objetivo" rows="3" required></textarea>
+
+            <!-- Habilidades -->
+            <div class="section-title">Habilidades</div>
+            <label for="hard-skills">Hard Skills:</label>
+            <textarea id="hard-skills" rows="2" required></textarea>
+
+            <label for="soft-skills">Soft Skills:</label>
+            <textarea id="soft-skills" rows="2" required></textarea>
+
+            <!-- Idiomas -->
+            <div class="section-title">Idiomas</div>
+            <textarea id="idiomas" rows="2" required></textarea>
+
+            <!-- Formação acadêmica -->
+            <div id="educacao-section">
+                <div class="section-title">Formação Acadêmica</div>
+                <div class="edu-item">
+                    <label for="instituicao">Instituição:</label>
+                    <input type="text" class="instituicao" required>
+                    <label for="curso">Curso:</label>
+                    <input type="text" class="curso" required>
+                    <label for="inicio-edu">Ano de Início:</label>
+                    <input type="text" class="inicio-edu" required>
+                    <label for="fim-edu">Ano de Conclusão:</label>
+                    <input type="text" class="fim-edu">
+                </div>
+            </div>
+            <button type="button" id="add-edu">Adicionar Formação Acadêmica</button>
+
+            <!-- Experiência profissional -->
+            <div id="experiencia-section">
+                <div class="section-title">Experiência Profissional</div>
+                <div class="exp-item">
+                    <label for="cargo">Cargo:</label>
+                    <input type="text" class="cargo" required>
+                    <label for="empresa">Empresa:</label>
+                    <input type="text" class="empresa" required>
+                    <label for="inicio-exp">Ano de Início:</label>
+                    <input type="text" class="inicio-exp" required>
+                    <label for="fim-exp">Ano de Conclusão:</label>
+                    <input type="text" class="fim-exp">
+                    <label for="desc-exp">Descrição das Atividades:</label>
+                    <textarea class="desc-exp" rows="4"></textarea>
+                </div>
+            </div>
+            <button type="button" id="add-exp">Adicionar Experiência Profissional</button>
+
+            <!-- Cursos e Certificações -->
+            <div id="cursos-section">
+                <div class="section-title">Cursos e Certificações</div>
+                <div class="curso-item">
+                    <label for="curso-nome">Nome do Curso/Certificação:</label>
+                    <input type="text" class="curso-nome" required>
+                    <label for="instituicao-curso">Instituição:</label>
+                    <input type="text" class="instituicao-curso" required>
+                    <label for="ano-curso">Ano de Conclusão:</label>
+                    <input type="text" class="ano-curso">
+                </div>
+            </div>
+            <button type="button" id="add-curso">Adicionar Curso/Certificação</button>
+
+            <!-- Botão para gerar currículo -->
+            <button type="button" onclick="gerarCurriculo()">Salvar e Baixar Currículo</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
