@@ -1,0 +1,455 @@
+
+import React, { useState, useEffect } from "react";
+import { Resume } from "@/entities/Resume";
+import { createPageUrl } from "@/utils";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { format } from "date-fns";
+import { CalendarIcon, Plus, Trash2, Save, Download } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
+export default function Builder() {
+  const navigate = useNavigate();
+  const urlParams = new URLSearchParams(window.location.search);
+  const resumeId = urlParams.get("id");
+  
+  const [resume, setResume] = useState({
+    personal_info: {},
+    experience: [],
+    education: [],
+    skills: [],
+    template: "modern"
+  });
+
+  useEffect(() => {
+    if (resumeId) {
+      loadResume();
+    }
+  }, [resumeId]);
+
+  const loadResume = async () => {
+    const data = await Resume.get(resumeId);
+    setResume(data);
+  };
+
+  const handlePersonalInfoChange = (field, value) => {
+    setResume(prev => ({
+      ...prev,
+      personal_info: {
+        ...prev.personal_info,
+        [field]: value
+      }
+    }));
+  };
+
+  const addExperience = () => {
+    setResume(prev => ({
+      ...prev,
+      experience: [...prev.experience, {
+        company: "",
+        position: "",
+        location: "",
+        start_date: "",
+        end_date: "",
+        current: false,
+        description: ""
+      }]
+    }));
+  };
+
+  const updateExperience = (index, field, value) => {
+    setResume(prev => ({
+      ...prev,
+      experience: prev.experience.map((exp, i) => 
+        i === index ? { ...exp, [field]: value } : exp
+      )
+    }));
+  };
+
+  const removeExperience = (index) => {
+    setResume(prev => ({
+      ...prev,
+      experience: prev.experience.filter((_, i) => i !== index)
+    }));
+  };
+
+  const addEducation = () => {
+    setResume(prev => ({
+      ...prev,
+      education: [...prev.education, {
+        school: "",
+        degree: "",
+        field: "",
+        start_date: "",
+        end_date: "",
+        current: false
+      }]
+    }));
+  };
+
+  const updateEducation = (index, field, value) => {
+    setResume(prev => ({
+      ...prev,
+      education: prev.education.map((edu, i) => 
+        i === index ? { ...edu, [field]: value } : edu
+      )
+    }));
+  };
+
+  const removeEducation = (index) => {
+    setResume(prev => ({
+      ...prev,
+      education: prev.education.filter((_, i) => i !== index)
+    }));
+  };
+
+  const addSkill = () => {
+    setResume(prev => ({
+      ...prev,
+      skills: [...prev.skills, { name: "", level: "intermediate" }]
+    }));
+  };
+
+  const updateSkill = (index, field, value) => {
+    setResume(prev => ({
+      ...prev,
+      skills: prev.skills.map((skill, i) => 
+        i === index ? { ...skill, [field]: value } : skill
+      )
+    }));
+  };
+
+  const removeSkill = (index) => {
+    setResume(prev => ({
+      ...prev,
+      skills: prev.skills.filter((_, i) => i !== index)
+    }));
+  };
+
+  const handleSave = async () => {
+    if (resumeId) {
+      await Resume.update(resumeId, resume);
+    } else {
+      await Resume.create(resume);
+    }
+    navigate(createPageUrl("Dashboard"));
+  };
+
+  return (
+    <div className="space-y-8">
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-gray-900">
+          {resumeId ? "Edit Resume" : "Create New Resume"}
+        </h1>
+        <div className="flex gap-3">
+          <Button variant="outline" onClick={() => window.print()}>
+            <Download className="w-4 h-4 mr-2" />
+            Export
+          </Button>
+          <Button onClick={handleSave} className="bg-blue-600 hover:bg-blue-700">
+            <Save className="w-4 h-4 mr-2" />
+            Save Resume
+          </Button>
+        </div>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-8">
+        <div className="space-y-8">
+          {/* Personal Information */}
+          <Card className="p-6">
+            <h2 className="text-lg font-semibold mb-4">Personal Information</h2>
+            <div className="space-y-4">
+              <div>
+                <Label>Full Name</Label>
+                <Input
+                  value={resume.personal_info.full_name || ""}
+                  onChange={(e) => handlePersonalInfoChange("full_name", e.target.value)}
+                />
+              </div>
+              <div>
+                <Label>Professional Title</Label>
+                <Input
+                  value={resume.personal_info.title || ""}
+                  onChange={(e) => handlePersonalInfoChange("title", e.target.value)}
+                />
+              </div>
+              <div>
+                <Label>Email</Label>
+                <Input
+                  type="email"
+                  value={resume.personal_info.email || ""}
+                  onChange={(e) => handlePersonalInfoChange("email", e.target.value)}
+                />
+              </div>
+              <div>
+                <Label>Phone</Label>
+                <Input
+                  value={resume.personal_info.phone || ""}
+                  onChange={(e) => handlePersonalInfoChange("phone", e.target.value)}
+                />
+              </div>
+              <div>
+                <Label>Location</Label>
+                <Input
+                  value={resume.personal_info.location || ""}
+                  onChange={(e) => handlePersonalInfoChange("location", e.target.value)}
+                />
+              </div>
+              <div>
+                <Label>LinkedIn</Label>
+                <Input
+                  value={resume.personal_info.linkedin || ""}
+                  onChange={(e) => handlePersonalInfoChange("linkedin", e.target.value)}
+                />
+              </div>
+              <div>
+                <Label>Website</Label>
+                <Input
+                  value={resume.personal_info.website || ""}
+                  onChange={(e) => handlePersonalInfoChange("website", e.target.value)}
+                />
+              </div>
+              <div>
+                <Label>Professional Summary</Label>
+                <Textarea
+                  value={resume.personal_info.summary || ""}
+                  onChange={(e) => handlePersonalInfoChange("summary", e.target.value)}
+                  className="h-32"
+                />
+              </div>
+            </div>
+          </Card>
+
+          {/* Skills */}
+          <Card className="p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold">Skills</h2>
+              <Button variant="outline" onClick={addSkill}>
+                <Plus className="w-4 h-4 mr-2" />
+                Add Skill
+              </Button>
+            </div>
+            <div className="space-y-4">
+              {resume.skills.map((skill, index) => (
+                <div key={index} className="flex gap-3">
+                  <Input
+                    value={skill.name}
+                    onChange={(e) => updateSkill(index, "name", e.target.value)}
+                    placeholder="Skill name"
+                  />
+                  <Select
+                    value={skill.level}
+                    onValueChange={(value) => updateSkill(index, "level", value)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="beginner">Beginner</SelectItem>
+                      <SelectItem value="intermediate">Intermediate</SelectItem>
+                      <SelectItem value="advanced">Advanced</SelectItem>
+                      <SelectItem value="expert">Expert</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => removeSkill(index)}
+                  >
+                    <Trash2 className="w-4 h-4 text-red-500" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </div>
+
+        <div className="space-y-8">
+          {/* Experience */}
+          <Card className="p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold">Work Experience</h2>
+              <Button variant="outline" onClick={addExperience}>
+                <Plus className="w-4 h-4 mr-2" />
+                Add Experience
+              </Button>
+            </div>
+            <div className="space-y-6">
+              {resume.experience.map((exp, index) => (
+                <div key={index} className="space-y-4 pb-6 border-b last:border-0">
+                  <div className="flex justify-end">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => removeExperience(index)}
+                    >
+                      <Trash2 className="w-4 h-4 text-red-500" />
+                    </Button>
+                  </div>
+                  <div>
+                    <Label>Company</Label>
+                    <Input
+                      value={exp.company}
+                      onChange={(e) => updateExperience(index, "company", e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <Label>Position</Label>
+                    <Input
+                      value={exp.position}
+                      onChange={(e) => updateExperience(index, "position", e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <Label>Location</Label>
+                    <Input
+                      value={exp.location}
+                      onChange={(e) => updateExperience(index, "location", e.target.value)}
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Start Date</Label>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button variant="outline" className="w-full justify-start">
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {exp.start_date ? format(new Date(exp.start_date), "MMM yyyy") : "Select date"}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                          <Calendar
+                            mode="single"
+                            selected={exp.start_date ? new Date(exp.start_date) : undefined}
+                            onSelect={(date) => updateExperience(index, "start_date", date)}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+                    <div>
+                      <Label>End Date</Label>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button variant="outline" className="w-full justify-start">
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {exp.end_date ? format(new Date(exp.end_date), "MMM yyyy") : "Select date"}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                          <Calendar
+                            mode="single"
+                            selected={exp.end_date ? new Date(exp.end_date) : undefined}
+                            onSelect={(date) => updateExperience(index, "end_date", date)}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+                  </div>
+                  <div>
+                    <Label>Description</Label>
+                    <Textarea
+                      value={exp.description}
+                      onChange={(e) => updateExperience(index, "description", e.target.value)}
+                      className="h-32"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
+
+          {/* Education */}
+          <Card className="p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold">Education</h2>
+              <Button variant="outline" onClick={addEducation}>
+                <Plus className="w-4 h-4 mr-2" />
+                Add Education
+              </Button>
+            </div>
+            <div className="space-y-6">
+              {resume.education.map((edu, index) => (
+                <div key={index} className="space-y-4 pb-6 border-b last:border-0">
+                  <div className="flex justify-end">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => removeEducation(index)}
+                    >
+                      <Trash2 className="w-4 h-4 text-red-500" />
+                    </Button>
+                  </div>
+                  <div>
+                    <Label>School</Label>
+                    <Input
+                      value={edu.school}
+                      onChange={(e) => updateEducation(index, "school", e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <Label>Degree</Label>
+                    <Input
+                      value={edu.degree}
+                      onChange={(e) => updateEducation(index, "degree", e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <Label>Field of Study</Label>
+                    <Input
+                      value={edu.field}
+                      onChange={(e) => updateEducation(index, "field", e.target.value)}
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Start Date</Label>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button variant="outline" className="w-full justify-start">
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {edu.start_date ? format(new Date(edu.start_date), "MMM yyyy") : "Select date"}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                          <Calendar
+                            mode="single"
+                            selected={edu.start_date ? new Date(edu.start_date) : undefined}
+                            onSelect={(date) => updateEducation(index, "start_date", date)}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+                    <div>
+                      <Label>End Date</Label>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button variant="outline" className="w-full justify-start">
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                            {edu.end_date ? format(new Date(edu.end_date), "MMM yyyy") : "Select date"}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                          <Calendar
+                            mode="single"
+                            selected={edu.end_date ? new Date(edu.end_date) : undefined}
+                            onSelect={(date) => updateEducation(index, "end_date", date)}
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+}

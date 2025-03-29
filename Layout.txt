@@ -1,0 +1,43 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import { createPageUrl } from "@/utils";
+import { FileText, List, Plus } from "lucide-react";
+
+export default function Layout({ children }) {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <nav className="bg-white border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16">
+            <div className="flex">
+              <Link to={createPageUrl("Dashboard")} className="flex items-center gap-2 text-xl font-semibold text-gray-900">
+                <FileText className="w-6 h-6 text-blue-600" />
+                Resume Builder
+              </Link>
+            </div>
+            <div className="flex gap-4">
+              <Link
+                to={createPageUrl("Dashboard")}
+                className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
+              >
+                <List className="w-4 h-4 mr-2" />
+                My Resumes
+              </Link>
+              <Link
+                to={createPageUrl("Builder")}
+                className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Create Resume
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        {children}
+      </main>
+    </div>
+  );
+}
