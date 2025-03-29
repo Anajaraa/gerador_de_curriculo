@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Currículo Profissional</title>
+    <title>Gerador de Currículo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -74,8 +73,8 @@
                     <button type="submit" class="gerar-btn">
                         <i class="fas fa-sync-alt"></i> Atualizar Visualização
                     </button>
-                    <button type="button" onclick="downloadPDF()" class="download-btn">
-                        <i class="fas fa-download"></i> Baixar PDF
+                    <button type="button" onclick="exportToWord()" class="download-btn">
+                        <i class="fas fa-download"></i> Baixar Word
                     </button>
                 </div>
             </form>
@@ -85,6 +84,7 @@
             <!-- Preview do currículo será gerado aqui -->
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

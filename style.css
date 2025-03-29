@@ -127,6 +127,15 @@ button:hover {
     background-color: #F57C00;
 }
 
+.remove-btn {
+    background-color: #f44336;
+    margin-top: 10px;
+}
+
+.remove-btn:hover {
+    background-color: #d32f2f;
+}
+
 .educacao-item, .experiencia-item {
     border: 1px solid #ddd;
     padding: 15px;
@@ -152,7 +161,6 @@ button:hover {
     display: none;
 }
 
-/* Preview Styles */
 #preview {
     line-height: 1.6;
 }
@@ -161,6 +169,7 @@ button:hover {
     color: #333;
     border-bottom: 2px solid #2196F3;
     padding-bottom: 10px;
+    text-align: left;
 }
 
 #preview h2 {
@@ -187,4 +196,32 @@ button:hover {
     margin: 15px 0;
     padding: 10px 0;
     border-bottom: 1px solid #eee;
+}
+
+@media print {
+    .form-container {
+        display: none;
+    }
+    
+    .container {
+        display: block;
+    }
+    
+    .preview-container {
+        width: 100%;
+        min-height: auto;
+        padding: 20mm;
+        margin: 0;
+        box-shadow: none;
+    }
+}
+
+@media (max-width: 1200px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .form-container, .preview-container {
+        width: 100%;
+    }
 }
