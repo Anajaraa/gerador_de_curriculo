@@ -1,3 +1,19 @@
+:root {
+    --bg-color: #f5f5f5;
+    --text-color: #333;
+    --container-bg: white;
+    --border-color: #eee;
+    --section-bg: #fafafa;
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --text-color: #fff;
+    --container-bg: #2d2d2d;
+    --border-color: #444;
+    --section-bg: #363636;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,9 +22,10 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f5f5;
+    background-color: var(--bg-color);
     padding: 20px;
-    color: #333;
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .container {
@@ -20,7 +37,7 @@ body {
 
 .form-container {
     flex: 1;
-    background-color: white;
+    background-color: var(--container-bg);
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -28,7 +45,7 @@ body {
 
 .preview-container {
     flex: 1;
-    background-color: white;
+    background-color: var(--container-bg);
     padding: 40px;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -38,9 +55,79 @@ body {
 .section {
     margin-bottom: 25px;
     padding: 20px;
-    border: 1px solid #eee;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    background-color: #fafafa;
+    background-color: var(--section-bg);
+}
+
+.theme-translate-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.theme-btn, .translate-btn {
+    padding: 8px 16px;
+    background-color: #2196F3;
+}
+
+.profile-section {
+    margin-bottom: 20px;
+}
+
+.file-input {
+    margin-bottom: 10px;
+}
+
+.image-preview {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 10px auto;
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+    display: block;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#preview .resume-content img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: block;
+}
+
+.idioma-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.idioma-select, .nivel-select {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--container-bg);
+    color: var(--text-color);
+}
+
+.skill-input {
+    margin-bottom: 10px;
+}
+
+.atividade-item {
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--container-bg);
 }
 
 h1 {
@@ -52,7 +139,7 @@ h1 {
 
 h2 {
     margin: 0 0 15px;
-    color: #333;
+    color: var(--text-color);
     font-size: 1.3em;
     border-bottom: 2px solid #2196F3;
     padding-bottom: 8px;
@@ -62,10 +149,12 @@ input, textarea {
     width: 100%;
     padding: 12px;
     margin-bottom: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     border-radius: 6px;
     font-size: 14px;
     transition: border-color 0.3s;
+    background-color: var(--container-bg);
+    color: var(--text-color);
 }
 
 input:focus, textarea:focus {
@@ -121,6 +210,7 @@ button:hover {
 .add-btn {
     background-color: #FF9800;
     width: 100%;
+    margin-top: 10px;
 }
 
 .add-btn:hover {
@@ -137,65 +227,144 @@ button:hover {
 }
 
 .educacao-item, .experiencia-item {
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 8px;
-    background-color: white;
+    background-color: var(--container-bg);
 }
 
-.social-media {
+social-option input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    background-color: var(--container-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+.social-option input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+}
+
+.social-links {
     margin: 15px 0;
 }
 
-.social-option {
-    margin-bottom: 10px;
+.social-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.social-option label {
-    display: block;
-    margin-bottom: 5px;
+.social-links li {
+    margin-bottom: 8px;
 }
 
-.hidden {
-    display: none;
+.social-links a {
+    color: #2196F3;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.social-links a:hover {
+    text-decoration: underline;
+}
+
+[data-theme="dark"] .social-links a {
+    color: #64B5F6;
 }
 
 #preview {
     line-height: 1.6;
+    font-size: 14px;
 }
 
 #preview h1 {
-    color: #333;
+    color: var(--text-color);
     border-bottom: 2px solid #2196F3;
     padding-bottom: 10px;
     text-align: left;
+    font-size: 24px;
+    margin-bottom: 15px;
 }
 
 #preview h2 {
     color: #2196F3;
     margin: 20px 0 10px;
+    font-size: 18px;
 }
 
 #preview .contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
     margin: 15px 0;
-    color: #666;
+    color: var(--text-color);
+}
+
+#preview .contact-info span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 #preview .social-links {
+    display: flex;
+    gap: 20px;
     margin: 10px 0;
 }
 
 #preview .social-links a {
     color: #2196F3;
     text-decoration: none;
-    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 #preview .educacao, #preview .experiencia {
     margin: 15px 0;
     padding: 10px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#preview .periodo {
+    color: #666;
+    font-style: italic;
+    margin: 5px 0;
+}
+
+#preview .cargo,
+#preview .curso {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+#preview .empresa,
+#preview .instituicao {
+    color: #2196F3;
+    font-weight: 500;
+}
+
+.skills-list {
+    list-style-type: disc;
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.atividades-list {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.atividade-titulo {
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
 @media print {
@@ -213,6 +382,19 @@ button:hover {
         padding: 20mm;
         margin: 0;
         box-shadow: none;
+        background: white;
+    }
+
+    #preview {
+        font-size: 12pt;
+    }
+
+    #preview h1 {
+        font-size: 18pt;
+    }
+
+    #preview h2 {
+        font-size: 14pt;
     }
 }
 

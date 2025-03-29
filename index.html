@@ -10,10 +10,24 @@
 <body>
     <div class="container">
         <div class="form-container">
+            <div class="theme-translate-buttons">
+                <button type="button" onclick="toggleTheme()" class="theme-btn">
+                    <i class="fas fa-moon"></i> Modo Escuro
+                </button>
+                <button type="button" onclick="translateToEnglish()" class="translate-btn">
+                    <i class="fas fa-language"></i> Translate to English
+                </button>
+            </div>
+
             <h1><i class="fas fa-file-alt"></i> Gerador de Currículo</h1>
+            
             <form id="resumeForm">
                 <div class="section">
                     <h2><i class="fas fa-user"></i> Informações Pessoais</h2>
+                    <div class="profile-section">
+                        <input type="file" id="profileImage" accept="image/*" class="file-input">
+                        <div id="imagePreview" class="image-preview hidden"></div>
+                    </div>
                     <input type="text" id="nome" placeholder="Nome Completo" required>
                     <input type="email" id="email" placeholder="Email" required>
                     <input type="tel" id="telefone" placeholder="Telefone" required>
@@ -33,6 +47,31 @@
                             <input type="text" id="github" placeholder="URL do GitHub" class="hidden">
                         </div>
                     </div>
+                </div>
+
+                <div class="section">
+                    <h2><i class="fas fa-language"></i> Idiomas</h2>
+                    <div id="idiomas-container">
+                        <div class="idioma-item">
+                            <select class="idioma-select" onchange="toggleOutroIdioma(this)">
+                                <option value="">Selecione o idioma</option>
+                                <option value="ingles">Inglês</option>
+                                <option value="espanhol">Espanhol</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                            <input type="text" class="outro-idioma hidden" placeholder="Especifique o idioma">
+                            <select class="nivel-select">
+                                <option value="">Nível</option>
+                                <option value="iniciante">Iniciante</option>
+                                <option value="intermediario">Intermediário</option>
+                                <option value="avancado">Avançado</option>
+                                <option value="fluente">Fluente</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" onclick="adicionarIdioma()" class="add-btn">
+                        <i class="fas fa-plus"></i> Adicionar Idioma
+                    </button>
                 </div>
 
                 <div class="section">
@@ -61,11 +100,43 @@
                             <input type="text" placeholder="Cargo">
                             <input type="text" placeholder="Empresa">
                             <input type="text" placeholder="Período">
-                            <textarea placeholder="Descrição das atividades"></textarea>
+                            <div class="atividades-container">
+                                <div class="atividade-item">
+                                    <input type="text" placeholder="Título da atividade">
+                                    <textarea placeholder="Descrição da atividade"></textarea>
+                                </div>
+                            </div>
+                            <button type="button" onclick="adicionarAtividade(this)" class="add-btn">
+                                <i class="fas fa-plus"></i> Adicionar Atividade
+                            </button>
                         </div>
                     </div>
                     <button type="button" onclick="adicionarExperiencia()" class="add-btn">
                         <i class="fas fa-plus"></i> Adicionar Experiência
+                    </button>
+                </div>
+
+                <div class="section">
+                    <h2><i class="fas fa-cogs"></i> Hard Skills</h2>
+                    <div id="hardskills-container">
+                        <div class="skill-input">
+                            <input type="text" placeholder="Adicione uma hard skill">
+                        </div>
+                    </div>
+                    <button type="button" onclick="adicionarHardSkill()" class="add-btn">
+                        <i class="fas fa-plus"></i> Adicionar Hard Skill
+                    </button>
+                </div>
+
+                <div class="section">
+                    <h2><i class="fas fa-users"></i> Soft Skills</h2>
+                    <div id="softskills-container">
+                        <div class="skill-input">
+                            <input type="text" placeholder="Adicione uma soft skill">
+                        </div>
+                    </div>
+                    <button type="button" onclick="adicionarSoftSkill()" class="add-btn">
+                        <i class="fas fa-plus"></i> Adicionar Soft Skill
                     </button>
                 </div>
 
@@ -80,11 +151,12 @@
             </form>
         </div>
 
-        <div class="preview-container" id="preview">
-            <!-- Preview do currículo será gerado aqui -->
+        <div class="preview-container">
+            <div id="preview">
+                <!-- Preview do currículo será gerado aqui -->
+            </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
